@@ -22,22 +22,9 @@ To get the latest version of Laravel-FCM on your project, require it from "compo
 	$ composer require davidaldan/laravel-fcm
 
 
-Or you can add it directly in your composer.json file:
-
-```json
-{
-    "require": {
-        "brozot/laravel-fcm": "1.3.*"
-    }
-}
-```
-
-
 ### Laravel
 
 Register the provider directly in your app configuration file config/app.php `config/app.php`:
-
-Laravel >= 5.5 provides package auto-discovery, thanks to rasmuscnielsen and luiztessadri who help to implement this feature in Laravel-FCM, the registration of the provider and the facades should not be necessary anymore.
 
 ```php
 'providers' => [
@@ -63,26 +50,6 @@ Publish the package config file using the following command:
 
 
 	$ php artisan vendor:publish --provider="LaravelFCM\FCMServiceProvider"
-
-
-### Lumen
-
-Register the provider in your bootstrap app file ```boostrap/app.php```
-
-Add the following line in the "Register Service Providers"  section at the bottom of the file.
-
-```php
-$app->register(LaravelFCM\FCMServiceProvider::class);
-```
-
-For facades, add the following lines in the section "Create The Application" . FCMGroup facade is only necessary if you want to use groups message in your application.
-
-```php
-class_alias(\LaravelFCM\Facades\FCM::class, 'FCM');
-class_alias(\LaravelFCM\Facades\FCMGroup::class, 'FCMGroup');
-```
-
-Copy the config file ```fcm.php``` manually from the directory ```/vendor/brozot/laravel-fcm/config``` to the directory ```/config ``` (you may need to create this directory).
 
 
 ### Package Configuration

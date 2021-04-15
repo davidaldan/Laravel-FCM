@@ -6,6 +6,7 @@ use LaravelFCM\Message\Topics;
 use LaravelFCM\Message\Options;
 use LaravelFCM\Message\PayloadData;
 use LaravelFCM\Message\PayloadNotification;
+use LaravelFCM\Message\PayloadApns;
 
 /**
  * Class Request.
@@ -43,6 +44,13 @@ class Request extends BaseRequest
     /**
      * @internal
      *
+     * @var PayloadApns
+     */
+    protected $apns;
+
+    /**
+     * @internal
+     *
      * @var Topics|null
      */
     protected $topic;
@@ -56,7 +64,7 @@ class Request extends BaseRequest
      * @param PayloadData         $data
      * @param Topics|null         $topic
      */
-    public function __construct($to, Options $options = null, PayloadNotification $notification = null, PayloadData $data = null, Topics $topic = null)
+    public function __construct($to, Options $options = null, PayloadNotification $notification = null, PayloadData $data = null, PayloadApns $apns = null, Topics $topic = null)
     {
         parent::__construct();
 
@@ -64,6 +72,7 @@ class Request extends BaseRequest
         $this->options = $options;
         $this->notification = $notification;
         $this->data = $data;
+        $this->apns = $apns;
         $this->topic = $topic;
     }
 
@@ -79,6 +88,7 @@ class Request extends BaseRequest
             'registration_ids' => $this->getRegistrationIds(),
             'notification' => $this->getNotification(),
             'data' => $this->getData(),
+            'apns' => $this->getApns(),
         ];
 
         $message = array_merge($message, $this->getOptions());
@@ -148,4 +158,15 @@ class Request extends BaseRequest
     {
         return $this->data ? $this->data->toArray() : null;
     }
+
+    /**
+     * get data transformed.
+     *
+     * @return array|null
+     */
+    protected function getApns()
+    {
+        return $this->apns ? $this->apns->toArray() : null;
+    }
+
 }
